@@ -12,3 +12,4 @@ Spring Boot REST application that can push notifications to PushBullet
 1. Issue a POST request http://localhost:8080/pushformybbc/v1/users with the JSON {"username": "yourUsername", "accessToken": "yourAccessToken"}
 1. Issue a GET request http://localhost:8080/pushformybbc/v1/users
 1. Issue a POST request http://localhost:8080/pushformybbc/v1/push with the JSON {"username":"yourUsername", "note": "Don't forget the milk again"}
+1. Issue a GET request http://localhost:8080/pushformybbc/v1/users again, to make certain your user's notifications counter has been incremented
