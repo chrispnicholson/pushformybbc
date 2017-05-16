@@ -3,13 +3,14 @@ package uk.co.bbc.pushformybbc.service;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import uk.co.bbc.pushformybbc.dto.PushBulletNotification;
 import uk.co.bbc.pushformybbc.dto.PushBulletResponse;
 import uk.co.bbc.pushformybbc.dto.User;
 
-import java.util.Date;
+import java.text.SimpleDateFormat;
 
 import static org.junit.Assert.assertTrue;
 
@@ -21,6 +22,9 @@ import static org.junit.Assert.assertTrue;
 @SpringBootTest
 public class PushServiceImplTest {
 
+    @Value("${test.access-token}")
+    private String accessToken;
+
     @Autowired
     private PushService pushService;
 
@@ -28,8 +32,9 @@ public class PushServiceImplTest {
     public void pushBulletNotification() {
         User user = new User();
         user.setUsername("chris.nicholson@gmail.com");
-        user.setAccessToken("o.JbP7sUcMBxQSR2ZsVfvCizG5xF3dP2cZ");
-        user.setCreationTime(new Date());
+        user.setAccessToken(accessToken);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'kk:mm:ss");
+        user.setCreationTime(simpleDateFormat.format(System.currentTimeMillis()));
         user.setNumOfNotificationsPushed(new Long(0));
         PushBulletNotification pushBulletNotification = new PushBulletNotification();
         pushBulletNotification.setTitle("Doctor Who");

@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import uk.co.bbc.pushformybbc.dto.User;
 import uk.co.bbc.pushformybbc.repository.UserRepository;
 
-import java.util.Date;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 /**
@@ -26,8 +26,9 @@ public class UserServiceImpl implements UserService {
 //        }
 
         System.out.println("User " + user.getUsername() + " added to repository with access token " + user.getAccessToken());
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'kk:mm:ss");
 
-        user.setCreationTime(new Date());
+        user.setCreationTime(simpleDateFormat.format(System.currentTimeMillis()));
         user.setNumOfNotificationsPushed(new Long(0));
 
         isSuccess = userRepository.addUser(user);

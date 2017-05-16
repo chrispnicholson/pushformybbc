@@ -3,8 +3,6 @@ package uk.co.bbc.pushformybbc.dto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-import java.util.Date;
-
 /**
  * Created by Chris on 09-May-17.
  */
@@ -13,7 +11,7 @@ import java.util.Date;
 public class User {
     private String username;
     private String accessToken;
-    private Date creationTime;
+    private String creationTime;
     private Long numOfNotificationsPushed;
 
     public String getUsername() {
@@ -32,11 +30,11 @@ public class User {
         this.accessToken = accessToken;
     }
 
-    public Date getCreationTime() {
+    public String getCreationTime() {
         return creationTime;
     }
 
-    public void setCreationTime(Date creationTime) {
+    public void setCreationTime(String creationTime) {
         this.creationTime = creationTime;
     }
 

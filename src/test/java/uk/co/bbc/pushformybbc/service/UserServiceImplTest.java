@@ -7,10 +7,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.springframework.beans.factory.annotation.Value;
 import uk.co.bbc.pushformybbc.dto.User;
 import uk.co.bbc.pushformybbc.repository.UserRepository;
 
-import java.util.Date;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -22,6 +23,9 @@ import static org.mockito.Mockito.when;
  */
 @RunWith(MockitoJUnitRunner.class)
 public class UserServiceImplTest {
+
+    @Value("${test.access-token}")
+    private String accessToken;
 
     @Mock
     private UserRepository userRepository;
@@ -59,8 +63,9 @@ public class UserServiceImplTest {
         String username = "testUser";
         User mockUser = new User();
         mockUser.setUsername(username);
-        mockUser.setAccessToken("o.JbP7sUcMBxQSR2ZsVfvCizG5xF3dP2cZ");
-        mockUser.setCreationTime(new Date());
+        mockUser.setAccessToken(accessToken);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'kk:mm:ss");
+        mockUser.setCreationTime(simpleDateFormat.format(System.currentTimeMillis()));
         mockUser.setNumOfNotificationsPushed(new Long(0));
         when(userRepository.retrieveUser(username)).thenReturn(mockUser);
         assertEquals(new Long(0), mockUser.getNumOfNotificationsPushed());
