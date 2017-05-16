@@ -61,9 +61,10 @@ public class UserRegistrationControllerTest {
         User result = userRegistrationController.registerUser(toRegister);
         assertEquals(new Long(0), result.getNumOfNotificationsPushed());
         Note note = new Note();
+        note.setUsername(username);
         note.setNote("Remember to get milk");
 
-        PushBulletResponse response = userRegistrationController.push(note, username);
+        PushBulletResponse response = userRegistrationController.push(note);
         assertTrue(response.isActive());
         assertEquals(new Long(1), toRegister.getNumOfNotificationsPushed());
     }

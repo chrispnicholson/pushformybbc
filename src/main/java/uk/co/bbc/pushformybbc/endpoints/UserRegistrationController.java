@@ -36,9 +36,10 @@ public class UserRegistrationController {
         return userService.getAllUsers();
     }
 
-    public PushBulletResponse push(Note note, String username) {
+    @RequestMapping(path = "v1/push", method = RequestMethod.POST)
+    public PushBulletResponse push(@RequestBody Note note) {
         PushBulletNotification pushBulletNotification = new PushBulletNotification();
-        User user = userService.getUser(username);
+        User user = userService.getUser(note.getUsername());
         pushBulletNotification.setType("note");
         pushBulletNotification.setBody(note.getNote());
         pushBulletNotification.setTitle(note.getNote());
