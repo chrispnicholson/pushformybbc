@@ -10,6 +10,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import uk.co.bbc.pushformybbc.dto.User;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * Created by Chris on 13-May-17.
@@ -44,5 +45,15 @@ public class UserRepositoryTests {
         inMemoryUserRepository.addUser(user3);
 
         assertEquals(3, inMemoryUserRepository.listAllUsers().size());
+    }
+
+    @Test
+    public void getUser() {
+        String username = "User1";
+        User user1 = new User();
+        user1.setUsername(username);
+        inMemoryUserRepository.addUser(user1);
+
+        assertNotNull(inMemoryUserRepository.retrieveUser(username));
     }
 }

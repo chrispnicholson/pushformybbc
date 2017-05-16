@@ -10,6 +10,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import uk.co.bbc.pushformybbc.dto.User;
 import uk.co.bbc.pushformybbc.repository.UserRepository;
 
+import java.util.Date;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -53,4 +54,15 @@ public class UserServiceImplTest {
         assertEquals(3, userService.getAllUsers().size());
     }
 
+    @Test
+    public void getUser() throws Exception {
+        String username = "testUser";
+        User mockUser = new User();
+        mockUser.setUsername(username);
+        mockUser.setAccessToken("o.JbP7sUcMBxQSR2ZsVfvCizG5xF3dP2cZ");
+        mockUser.setCreationTime(new Date());
+        mockUser.setNumOfNotificationsPushed(new Long(0));
+        when(userRepository.retrieveUser(username)).thenReturn(mockUser);
+        assertEquals(new Long(0), mockUser.getNumOfNotificationsPushed());
+    }
 }

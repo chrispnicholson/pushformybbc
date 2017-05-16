@@ -27,4 +27,9 @@ public class InMemoryUserRepository implements UserRepository {
         users.addAll(mapOfUsers.values());
         return users;
     }
+
+    @Override
+    public User retrieveUser(String username) {
+        return mapOfUsers.get(username);
+    }
 }

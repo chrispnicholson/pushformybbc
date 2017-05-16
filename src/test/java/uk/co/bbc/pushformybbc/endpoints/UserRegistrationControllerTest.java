@@ -8,6 +8,8 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import uk.co.bbc.pushformybbc.dto.Note;
+import uk.co.bbc.pushformybbc.dto.PushBulletResponse;
 import uk.co.bbc.pushformybbc.dto.User;
 
 import java.util.Date;
@@ -15,6 +17,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by Chris on 13-May-17.
@@ -46,6 +49,23 @@ public class UserRegistrationControllerTest {
         assertEquals(new Long(0), result.getNumOfNotificationsPushed());
         ObjectMapper mapper = new ObjectMapper();
         System.out.println(mapper.writeValueAsString(result));
+    }
+
+    // strictly speaking an integration test, not a unit test
+    @Test
+    public void push() throws Exception {
+        String username = "bbcUser1";
+        User toRegister = new User();
+        toRegister.setUsername(username);
+        toRegister.setAccessToken("o.JbP7sUcMBxQSR2ZsVfvCizG5xF3dP2cZ");
+        User result = userRegistrationController.registerUser(toRegister);
+        assertEquals(new Long(0), result.getNumOfNotificationsPushed());
+        Note note = new Note();
+        note.setNote("Remember to get milk");
+
+        PushBulletResponse response = userRegistrationController.push(note, username);
+        assertTrue(response.isActive());
+        assertEquals(new Long(1), toRegister.getNumOfNotificationsPushed());
     }
 
     @Test

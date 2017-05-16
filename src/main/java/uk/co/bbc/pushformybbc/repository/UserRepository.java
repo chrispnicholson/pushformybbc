@@ -11,4 +11,6 @@ public interface UserRepository {
     public boolean addUser(User user);
 
     public List<User> listAllUsers();
+
+    public User retrieveUser(String username);
 }

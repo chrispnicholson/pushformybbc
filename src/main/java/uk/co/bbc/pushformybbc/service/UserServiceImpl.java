@@ -40,6 +40,11 @@ public class UserServiceImpl implements UserService {
         return userRepository.listAllUsers();
     }
 
+    @Override
+    public User getUser(String username) {
+        return userRepository.retrieveUser(username);
+    }
+
     public UserRepository getUserRepository() {
         return userRepository;
     }
